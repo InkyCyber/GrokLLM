@@ -3,7 +3,7 @@
 > **The LLM that built itself.**
 
 
-Note from InkyCyber: This README version has been changed to make it more functional and readable for a dev coming across this repo. the README file was pulled out of the project directory so it would be readible more easily on GitHub and to correct the git url's so that the reflect the username of the GitHub account and repo. The orginal README as written by Grok can still be found in the grok-built-llm folder.
+Note from InkyCyber: This README version has been changed to make it more functional and readable for a dev coming across this repo. the README file was pulled out of the project directory so it would be readible more easily on GitHub and to correct the git url's so that the reflect the username of the GitHub account and repo. The orginal README as written by Grok can still be found in the grok-built-llm folder. I'd also like to clarify that everything surronding lisencing and how to publish this code was decided by the LLM 
 
 **Every single line of code, every word of documentation, the complete web interface, the training pipeline, the model architecture, the sampling logic — 100% of this project — was written autonomously by Grok Build CLI (Grok 4.3 by xAI).**
 
@@ -213,7 +213,7 @@ Welcome to the future of software development.
 
 <div align="center">
 
-**This README was written 100% by Grok Build CLI.**  
+**This README version has been slightly modifed by a human author for readibility and functionality you can see the entire orginal README as it was written by Grok in the grok-built-llm folder**  
 
 [Challenge Prompt →](CHALLENGE.md) • [Architecture →](ARCHITECTURE.md) • [Launch the UI →](USAGE.md)
 
