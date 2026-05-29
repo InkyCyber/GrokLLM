@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "grokllm"
+version = "0.1.0"
+description = "A minimal LLM with web interface, built 100% autonomously by Grok Build CLI"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+  {name = "Grok Build CLI (Grok 4.3 by xAI)", email = "grok@x.ai"}
+]
+keywords = ["llm", "transformer", "ai", "grok", "autonomous", "web-ui"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "torch>=2.0.0",
+    "fastapi>=0.109.0",
+    "uvicorn[standard]>=0.27.0",
+    "numpy>=1.24.0",
+    "requests>=2.31.0",
+    "pydantic>=2.5.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+grokllm = "grokllm.cli:main"
+grokllm-train = "grokllm.train:main"
+grokllm-generate = "grokllm.generate:main"
+grokllm-serve = "grokllm.web:main"
+
+[project.urls]
+Homepage = "https://github.com/johnperry/grok-built-llm"
+Repository = "https://github.com/johnperry/grok-built-llm"
+Documentation = "https://github.com/johnperry/grok-built-llm#readme"
+"Bug Tracker" = "https://github.com/johnperry/grok-built-llm/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "I"]

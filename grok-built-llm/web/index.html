@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrokLLM • Built by Grok Build CLI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --primary: #6366f1;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .grok-gradient {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .terminal {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        }
+
+        .generation-text {
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .metric {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-active {
+            background-color: rgba(99, 102, 241, 0.1);
+            color: #6366f1;
+            font-weight: 600;
+        }
+
+        .attribution-banner {
+            background: linear-gradient(to right, #1e2937, #0f172a);
+            border: 1px solid #334155;
+        }
+
+        .model-card {
+            background: #0f172a;
+            border: 1px solid #334155;
+        }
+
+        .prompt-example {
+            transition: all 0.1s ease;
+        }
+        
+        .prompt-example:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        .slider-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.025em;
+        }
+
+        .section-header {
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #64748b;
+        }
+
+        .grok-glow {
+            box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.2),
+                        0 10px 15px -3px rgba(99, 102, 241, 0.1);
+        }
+
+        .result-container {
+            max-height: 420px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+
+        .result-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .result-container::-webkit-scrollbar-thumb {
+            background-color: #475569;
+            border-radius: 3px;
+        }
+
+        .stat-pill {
+            background: #1e2937;
+            border: 1px solid #334155;
+        }
+
+        .footer-attribution {
+            font-size: 0.7rem;
+            letter-spacing: 0.03em;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200">
+    <!-- TOP META BANNER -->
+    <div class="bg-slate-900 border-b border-slate-800 py-2">
+        <div class="max-w-screen-xl mx-auto px-6 flex items-center justify-between text-sm">
+            <div class="flex items-center gap-x-3">
+                <div class="flex items-center gap-x-2">
+                    <div class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></div>
+                    <span class="font-semibold text-emerald-400 text-xs tracking-[0.5px]">YOLO MODE COMPLETE</span>
+                </div>
+                <div class="hidden sm:block text-slate-400 text-xs">
+                    100% AUTONOMOUS BUILD BY <span class="font-semibold text-indigo-400">GROK BUILD CLI</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-x-4 text-xs">
+                <a href="#challenge" class="hover:text-indigo-400 transition-colors flex items-center gap-x-1">
+                    <i class="fa-solid fa-book text-[10px]"></i>
+                    <span>THE CHALLENGE</span>
+                </a>
+                <a href="https://github.com/johnperry/grok-built-llm" target="_blank" 
+                   class="hover:text-indigo-400 transition-colors flex items-center gap-x-1.5">
+                    <i class="fa-brands fa-github"></i>
+                    <span>VIEW SOURCE</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <div class="max-w-screen-xl mx-auto px-6 pt-12 pb-8">
+        <div class="flex flex-col items-center text-center">
+            <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-2xl bg-slate-900 border border-slate-800 mb-6">
+                <div class="px-2.5 py-0.5 rounded-xl bg-indigo-500/10 text-indigo-400 text-xs font-bold tracking-widest">GROK 4.3</div>
+                <div class="text-xs text-slate-400 font-medium">BUILT IN ONE AUTONOMOUS SESSION</div>
+            </div>
+
+            <h1 class="text-6xl sm:text-7xl font-display tracking-tighter mb-3">
+                Grok<span class="grok-gradient">LLM</span>
+            </h1>
+            
+            <p class="max-w-md text-xl text-slate-400 mb-2">
+                A real transformer language model.<br>
+                <span class="text-slate-300">Trained and served by AI, with zero human code.</span>
+            </p>
+
+            <div class="flex items-center gap-x-3 mt-4">
+                <div onclick="document.getElementById('generate-section').scrollIntoView({behavior:'smooth'})" 
+                     class="cursor-pointer inline-flex items-center justify-center gap-x-2 px-6 py-3 rounded-2xl bg-white text-slate-950 font-semibold hover:bg-slate-100 active:scale-[0.985] transition-all">
+                    <i class="fa-solid fa-play mr-1"></i>
+                    <span>Try the model</span>
+                </div>
+                <a href="#story" 
+                   class="inline-flex items-center justify-center gap-x-2 px-5 py-3 rounded-2xl border border-slate-700 hover:bg-slate-900 font-medium text-sm transition-all">
+                    Read the story
+                </a>
+            </div>
+
+            <div class="mt-6 flex items-center gap-x-6 text-xs text-slate-400">
+                <div class="flex items-center gap-x-1.5">
+                    <i class="fa-solid fa-microchip"></i>
+                    <span>~820K parameters</span>
+                </div>
+                <div class="flex items-center gap-x-1.5">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Trains in &lt; 90s on CPU</span>
+                </div>
+                <div class="flex items-center gap-x-1.5">
+                    <i class="fa-solid fa-user-secret"></i>
+                    <span>0 human edits</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ATTRIBUTION BANNER -->
+    <div class="max-w-screen-xl mx-auto px-6 pb-8">
+        <div class="attribution-banner rounded-3xl px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center gap-y-2 sm:gap-y-0 sm:justify-between text-sm">
+            <div class="flex items-start sm:items-center gap-x-3">
+                <div class="shrink-0 w-9 h-9 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center">
+                    <i class="fa-solid fa-robot text-white text-xl"></i>
+                </div>
+                <div>
+                    <div class="font-semibold">This entire project was written by Grok Build CLI</div>
+                    <div class="text-slate-400 text-xs mt-0.5">No human developer touched any file except the initial prompt.</div>
+                </div>
+            </div>
+            <div class="text-[10px] sm:text-xs px-3 py-1 rounded-xl border border-slate-700 bg-slate-950/60 text-center leading-tight">
+                YOLO MODE • ONE-WORD STEERING ONLY<br>
+                <span class="font-semibold text-emerald-400">"fix"</span> was the only command allowed
+            </div>
+        </div>
+    </div>
+
+    <!-- GENERATION SECTION -->
+    <div id="generate-section" class="max-w-screen-xl mx-auto px-6 pb-16">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Controls -->
+            <div class="lg:col-span-5">
+                <div class="model-card rounded-3xl p-6 grok-glow">
+                    <div class="section-header mb-4 flex items-center justify-between">
+                        <div>GENERATION CONTROLS</div>
+                        <div onclick="resetDefaults()" class="cursor-pointer text-indigo-400 hover:text-indigo-300 text-xs font-bold">RESET</div>
+                    </div>
+
+                    <!-- Prompt -->
+                    <div class="mb-5">
+                        <div class="flex justify-between items-baseline mb-1.5 px-0.5">
+                            <label class="slider-label text-slate-300">PROMPT</label>
+                        </div>
+                        <textarea id="prompt" rows="3"
+                                  class="w-full bg-slate-900 border border-slate-700 focus:border-indigo-500/70 transition-colors rounded-2xl px-4 py-3 text-sm placeholder:text-slate-500 font-light"
+                                  placeholder="Enter a prompt...">To be or not to be</textarea>
+                    </div>
+
+                    <!-- Sliders -->
+                    <div class="space-y-5">
+                        <!-- Temperature -->
+                        <div>
+                            <div class="flex justify-between mb-1.5 px-0.5 items-center">
+                                <label class="slider-label">TEMPERATURE</label>
+                                <span id="temp-value" class="font-mono text-sm font-semibold bg-slate-800 px-2 py-px rounded">0.75</span>
+                            </div>
+                            <input type="range" id="temperature" min="0.1" max="1.5" step="0.05" value="0.75"
+                                   class="w-full accent-indigo-500" oninput="updateSliderValues()">
+                            <div class="flex justify-between text-[10px] text-slate-500 mt-0.5 px-0.5">
+                                <div>DETERMINISTIC</div><div>CREATIVE</div>
+                            </div>
+                        </div>
+
+                        <!-- Top-k -->
+                        <div>
+                            <div class="flex justify-between mb-1.5 px-0.5 items-center">
+                                <label class="slider-label">TOP-K</label>
+                                <span id="topk-value" class="font-mono text-sm font-semibold bg-slate-800 px-2 py-px rounded">40</span>
+                            </div>
+                            <input type="range" id="top-k" min="1" max="100" step="1" value="40"
+                                   class="w-full accent-indigo-500" oninput="updateSliderValues()">
+                        </div>
+
+                        <!-- Top-p -->
+                        <div>
+                            <div class="flex justify-between mb-1.5 px-0.5 items-center">
+                                <label class="slider-label">TOP-P (NUCLEUS)</label>
+                                <span id="topp-value" class="font-mono text-sm font-semibold bg-slate-800 px-2 py-px rounded">0.90</span>
+                            </div>
+                            <input type="range" id="top-p" min="0.1" max="1.0" step="0.05" value="0.90"
+                                   class="w-full accent-indigo-500" oninput="updateSliderValues()">
+                        </div>
+
+                        <!-- Max tokens -->
+                        <div>
+                            <div class="flex justify-between mb-1.5 px-0.5 items-center">
+                                <label class="slider-label">MAX NEW TOKENS</label>
+                                <span id="maxtok-value" class="font-mono text-sm font-semibold bg-slate-800 px-2 py-px rounded">180</span>
+                            </div>
+                            <input type="range" id="max-tokens" min="20" max="400" step="10" value="180"
+                                   class="w-full accent-indigo-500" oninput="updateSliderValues()">
+                        </div>
+                    </div>
+
+                    <!-- Generate button -->
+                    <button onclick="generateText()"
+                            class="mt-6 w-full py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 font-semibold text-base flex items-center justify-center gap-x-2 transition-all shadow-inner">
+                        <i class="fa-solid fa-magic"></i>
+                        <span>GENERATE TEXT</span>
+                    </button>
+
+                    <div class="text-center mt-3 text-xs text-slate-500">
+                        Running locally on your machine • ~820K param model
+                    </div>
+                </div>
+
+                <!-- Quick Examples -->
+                <div class="mt-5 px-1">
+                    <div class="section-header mb-2.5 px-1">TRY THESE PROMPTS</div>
+                    <div class="grid grid-cols-2 gap-2 text-sm">
+                        <div onclick="useExample(this)" class="prompt-example cursor-pointer bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl px-3 py-2 text-xs">The king said unto his court</div>
+                        <div onclick="useExample(this)" class="prompt-example cursor-pointer bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl px-3 py-2 text-xs">To be, or not to be</div>
+                        <div onclick="useExample(this)" class="prompt-example cursor-pointer bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl px-3 py-2 text-xs">O Romeo, Romeo!</div>
+                        <div onclick="useExample(this)" class="prompt-example cursor-pointer bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl px-3 py-2 text-xs">What light through yonder</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output -->
+            <div class="lg:col-span-7">
+                <div class="model-card rounded-3xl p-6 h-full flex flex-col">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <span class="section-header">GENERATED OUTPUT</span>
+                        </div>
+                        <div id="status-pill" 
+                             class="text-xs font-bold px-3 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-700">
+                            READY
+                        </div>
+                    </div>
+
+                    <!-- Output area -->
+                    <div class="flex-1 bg-slate-950 border border-slate-800 rounded-2xl p-5 font-light text-[15px] leading-relaxed min-h-[210px] result-container" id="output">
+                        <div class="text-slate-500 italic text-sm">
+                            Your generation will appear here.<br>
+                            The model was trained on Tiny Shakespeare and produces text in a similar style.
+                        </div>
+                    </div>
+
+                    <!-- Stats row -->
+                    <div id="stats-row" class="hidden mt-4 grid grid-cols-3 gap-2">
+                        <div class="stat-pill rounded-2xl px-3 py-2 text-center">
+                            <div class="text-emerald-400 text-xs font-bold tracking-wider">TOKENS</div>
+                            <div id="stat-tokens" class="text-2xl font-semibold tabular-nums font-display mt-0.5">—</div>
+                        </div>
+                        <div class="stat-pill rounded-2xl px-3 py-2 text-center">
+                            <div class="text-emerald-400 text-xs font-bold tracking-wider">TIME</div>
+                            <div id="stat-time" class="text-2xl font-semibold tabular-nums font-display mt-0.5">—</div>
+                        </div>
+                        <div class="stat-pill rounded-2xl px-3 py-2 text-center">
+                            <div class="text-emerald-400 text-xs font-bold tracking-wider">SPEED</div>
+                            <div id="stat-speed" class="text-2xl font-semibold tabular-nums font-display mt-0.5">—</div>
+                        </div>
+                    </div>
+
+                    <div class="text-[10px] text-center mt-4 text-slate-500">
+                        This text was produced by a neural network whose weights and code were created entirely by Grok Build CLI
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- THE STORY / CHALLENGE -->
+    <div id="story" class="bg-slate-900 border-y border-slate-800 py-12">
+        <div class="max-w-screen-xl mx-auto px-6">
+            <div class="max-w-2xl mx-auto">
+                <div class="uppercase text-xs tracking-[3px] font-bold text-indigo-400 mb-2">THE EXPERIMENT</div>
+                <h2 class="text-4xl font-display tracking-tighter mb-6">A challenge given to an LLM,<br>executed by an LLM.</h2>
+                
+                <div class="prose prose-invert text-slate-300 text-[15px]">
+                    <p class="mb-4">The user who created this repository issued the original prompt (Prompt 1) to the Grok Build CLI, followed later by Prompt 2 (both reproduced verbatim in <a href="CHALLENGE.md" class="text-indigo-400 hover:underline">CHALLENGE.md</a>). The agent was instructed to:</p>
+                    
+                    <ul class="list-disc pl-5 mb-5 space-y-1 text-sm">
+                        <li>Build a <strong>simple but real LLM</strong> with a web interface</li>
+                        <li>Write <strong>complete documentation</strong></li>
+                        <li>Make it obvious to everyone that <strong>everything was built by the CLI itself</strong></li>
+                    </ul>
+                    
+                    <div class="bg-slate-950 border border-slate-800 rounded-2xl px-5 py-4 text-sm mb-4">
+                        <div class="font-semibold text-amber-400 mb-1 flex items-center gap-x-2">
+                            <i class="fa-solid fa-exclamation-triangle"></i> 
+                            <span>STRICT RULES</span>
+                        </div>
+                        <div class="text-slate-400">
+                            • Zero human code allowed<br>
+                            • YOLO / always-approve mode<br>
+                            • Human could only reply with one word: “fix”
+                        </div>
+                    </div>
+                    
+                    <p class="text-sm text-slate-400">The result is the project you are currently inside. Every Python file, every line of HTML, every paragraph of documentation — written in one continuous autonomous session.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODEL SPECS -->
+    <div class="max-w-screen-xl mx-auto px-6 py-12">
+        <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5">
+                <div class="uppercase tracking-widest text-xs font-bold text-slate-500 mb-2">ARCHITECTURE</div>
+                <div class="text-3xl font-display">Decoder-only<br>Transformer</div>
+                <div class="mt-5 text-sm space-y-1 text-slate-400">
+                    <div>4 layers • 4 heads</div>
+                    <div>128 embedding dim</div>
+                    <div>Character-level tokenizer (65 tokens)</div>
+                </div>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5">
+                <div class="uppercase tracking-widest text-xs font-bold text-slate-500 mb-2">TRAINING</div>
+                <div class="text-3xl font-display">Tiny Shakespeare</div>
+                <div class="mt-4 text-sm text-slate-400">
+                    ~1M characters of public domain text.<br>
+                    Trains from scratch on any modern laptop CPU in under two minutes.
+                </div>
+                <div class="mt-5">
+                    <span class="px-3 py-1 text-xs rounded-full bg-emerald-900/60 text-emerald-400 font-medium">~820K parameters</span>
+                </div>
+            </div>
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 flex flex-col">
+                <div class="uppercase tracking-widest text-xs font-bold text-slate-500 mb-2">CREDITS</div>
+                <div class="flex-1">
+                    <div class="font-semibold">Grok Build CLI</div>
+                    <div class="text-sm text-slate-400">Grok 4.3 by xAI — April 2026</div>
+                    
+                    <div class="mt-4 text-xs text-slate-400">No other humans or models contributed code to this repository.</div>
+                </div>
+                <div class="text-[10px] text-indigo-400/70 mt-auto pt-4 border-t border-slate-800">Read the full story in <span class="font-semibold">CHALLENGE.md</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FINAL ATTRIBUTION -->
+    <div class="border-t border-slate-800 py-8">
+        <div class="max-w-screen-xl mx-auto px-6 text-center">
+            <div class="inline-flex items-center gap-x-2 text-xs uppercase tracking-widest font-bold text-slate-500 mb-2">
+                <div class="h-px w-8 bg-slate-700"></div>
+                AUTONOMOUS BUILD
+                <div class="h-px w-8 bg-slate-700"></div>
+            </div>
+            <div class="text-sm text-slate-400 max-w-xs mx-auto">
+                Every file in this repository — including this HTML page — was generated by Grok Build CLI with no human code edits.
+            </div>
+            <div class="mt-3 text-xs">
+                <span class="font-semibold text-indigo-400">GROKLLM</span> 
+                <span class="text-slate-500">• a live demonstration of agentic software engineering</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind script
+        function initializeTailwind() {
+            document.documentElement.style.setProperty('--accent', '#6366f1');
+        }
+
+        function updateSliderValues() {
+            const temp = document.getElementById('temperature').value;
+            const topk = document.getElementById('top-k').value;
+            const topp = document.getElementById('top-p').value;
+            const maxt = document.getElementById('max-tokens').value;
+
+            document.getElementById('temp-value').innerText = parseFloat(temp).toFixed(2);
+            document.getElementById('topk-value').innerText = topk;
+            document.getElementById('topp-value').innerText = parseFloat(topp).toFixed(2);
+            document.getElementById('maxtok-value').innerText = maxt;
+        }
+
+        function resetDefaults() {
+            document.getElementById('temperature').value = 0.75;
+            document.getElementById('top-k').value = 40;
+            document.getElementById('top-p').value = 0.90;
+            document.getElementById('max-tokens').value = 180;
+            document.getElementById('prompt').value = "To be or not to be";
+            updateSliderValues();
+        }
+
+        function useExample(el) {
+            document.getElementById('prompt').value = el.innerText.trim();
+            document.getElementById('prompt').focus();
+        }
+
+        function setStatus(text, type = 'ready') {
+            const pill = document.getElementById('status-pill');
+            pill.innerHTML = text;
+            
+            if (type === 'loading') {
+                pill.className = 'text-xs font-bold px-3 py-1 rounded-full bg-amber-900/60 text-amber-400 border border-amber-800';
+            } else if (type === 'success') {
+                pill.className = 'text-xs font-bold px-3 py-1 rounded-full bg-emerald-900/60 text-emerald-400 border border-emerald-800';
+            } else {
+                pill.className = 'text-xs font-bold px-3 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-700';
+            }
+        }
+
+        async function generateText() {
+            const prompt = document.getElementById('prompt').value.trim();
+            const temperature = parseFloat(document.getElementById('temperature').value);
+            const top_k = parseInt(document.getElementById('top-k').value);
+            const top_p = parseFloat(document.getElementById('top-p').value);
+            const max_new_tokens = parseInt(document.getElementById('max-tokens').value);
+
+            const outputEl = document.getElementById('output');
+            const statsRow = document.getElementById('stats-row');
+
+            setStatus('GENERATING...', 'loading');
+            outputEl.innerHTML = `<div class="flex items-center gap-x-2 text-slate-400 text-sm"><i class="fa-solid fa-spinner fa-spin"></i> <span>Contacting local model...</span></div>`;
+            statsRow.classList.add('hidden');
+
+            try {
+                const res = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        prompt,
+                        temperature,
+                        top_k,
+                        top_p,
+                        max_new_tokens
+                    })
+                });
+
+                if (!res.ok) {
+                    const err = await res.json().catch(() => ({}));
+                    throw new Error(err.detail || `Server returned ${res.status}`);
+                }
+
+                const data = await res.json();
+
+                // Show result
+                outputEl.innerHTML = `
+                    <div class="generation-text text-slate-100 leading-relaxed text-[15px]">${escapeHtml(data.text)}</div>
+                `;
+
+                // Stats
+                document.getElementById('stat-tokens').innerText = data.tokens_generated;
+                document.getElementById('stat-time').innerText = data.elapsed_seconds + 's';
+                document.getElementById('stat-speed').innerText = data.tokens_per_second + '/s';
+
+                statsRow.classList.remove('hidden');
+                setStatus('DONE', 'success');
+
+            } catch (err) {
+                console.error(err);
+                outputEl.innerHTML = `
+                    <div class="text-red-400 text-sm">
+                        Generation failed.<br>
+                        <span class="text-red-400/70">${escapeHtml(err.message)}</span><br><br>
+                        <span class="text-xs">Tip: Make sure you ran <span class="font-mono bg-slate-900 px-1 rounded">python train.py</span> first.</span>
+                    </div>
+                `;
+                setStatus('ERROR', 'ready');
+            }
+        }
+
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        async function checkHealthOnLoad() {
+            try {
+                const res = await fetch('/api/health');
+                const data = await res.json();
+                
+                if (!data.model_loaded) {
+                    const banner = document.createElement('div');
+                    banner.className = 'max-w-screen-xl mx-auto px-6 mb-4';
+                    banner.innerHTML = `
+                        <div class="rounded-2xl border border-amber-900 bg-amber-950/30 px-5 py-3 text-amber-300 text-sm flex items-start gap-x-3">
+                            <i class="fa-solid fa-exclamation-triangle mt-1"></i>
+                            <div>
+                                <span class="font-semibold">No model loaded.</span> 
+                                Run <span class="font-mono text-amber-200 bg-black/40 px-1.5 py-px rounded">python train.py</span> 
+                                in the project directory, then refresh.
+                            </div>
+                        </div>
+                    `;
+                    document.querySelector('#generate-section').prepend(banner);
+                }
+            } catch (e) {
+                console.log("Health check failed (server may still be starting)", e);
+            }
+        }
+
+        // Keyboard shortcut
+        function setupKeyboard() {
+            document.addEventListener('keydown', function(e) {
+                if (e.metaKey && e.key === "Enter") {
+                    e.preventDefault();
+                    generateText();
+                }
+            });
+            
+            // Show hint once
+            setTimeout(() => {
+                const prompt = document.getElementById('prompt');
+                if (prompt) {
+                    prompt.placeholder = "Enter a prompt... (⌘+Enter to generate)";
+                }
+            }, 1200);
+        }
+
+        // Boot
+        function boot() {
+            initializeTailwind();
+            updateSliderValues();
+            setupKeyboard();
+            checkHealthOnLoad();
+            
+            // Easter egg: clicking the title does something fun
+            const title = document.querySelector('h1');
+            if (title) {
+                title.addEventListener('click', () => {
+                    title.style.transitionDuration = '80ms';
+                    title.style.transform = 'scale(0.96)';
+                    setTimeout(() => { title.style.transform = ''; }, 80);
+                    
+                    const output = document.getElementById('output');
+                    if (output) {
+                        output.innerHTML = `<div class="text-xs text-center text-slate-500 py-6">Built entirely by an autonomous AI agent.<br>No humans were harmed (or involved) in the making of this page.</div>`;
+                    }
+                });
+            }
+
+            // Dev hint in console
+            console.log('%c[GrokLLM] This entire interface + backend was created by Grok Build CLI with zero human code.', 'color:#64748b');
+        }
+
+        window.onload = boot;
+    </script>
+</body>
+</html>

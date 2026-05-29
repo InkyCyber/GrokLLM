@@ -1,0 +1,5 @@
+[console_scripts]
+grokllm = grokllm.cli:main
+grokllm-generate = grokllm.generate:main
+grokllm-serve = grokllm.web:main
+grokllm-train = grokllm.train:main
