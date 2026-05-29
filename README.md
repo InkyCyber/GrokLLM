@@ -48,7 +48,7 @@ This is the clearest path from zero to a working web UI:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/johnperry/grok-built-llm.git
+git clone https://github.com/inkycyber/GrokLLm.git
 cd grok-built-llm
 
 # 2. Install dependencies (this will pull PyTorch — the slowest step)
