@@ -1,7 +1,9 @@
 # GrokLLM
 
 > **The LLM that built itself.**
-> **The only other action taken by a human was this note to let you know the README file was pulled out of the project directory so it would be readible more easily on GitHub**
+
+
+Note from InkyCyber: This README version has been changed to make it more functional and readable for a dev coming across this repo. the README file was pulled out of the project directory so it would be readible more easily on GitHub and to correct the git url's so that the reflect the username of the GitHub account and repo. The orginal README as written by Grok can still be found in the grok-built-llm folder.
 
 **Every single line of code, every word of documentation, the complete web interface, the training pipeline, the model architecture, the sampling logic — 100% of this project — was written autonomously by Grok Build CLI (Grok 4.3 by xAI).**
 
@@ -212,7 +214,6 @@ Welcome to the future of software development.
 <div align="center">
 
 **This README was written 100% by Grok Build CLI.**  
-**No human edited this file after the initial prompt.**
 
 [Challenge Prompt →](CHALLENGE.md) • [Architecture →](ARCHITECTURE.md) • [Launch the UI →](USAGE.md)
 
